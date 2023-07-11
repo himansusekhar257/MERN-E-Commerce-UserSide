@@ -1,5 +1,5 @@
 // export const base_url = "http://localhost:5000/api/";
-export const base_url = "https://mern-e-commerce-backend-chi.vercel.app/";
+export const base_url = "https://mern-e-commerce-backend-omega.vercel.app/";
 const getTokenFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
