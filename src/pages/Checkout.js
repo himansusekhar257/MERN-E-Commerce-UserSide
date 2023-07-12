@@ -139,14 +139,11 @@ const checkOutHandler = async () => {
       };
 
       const result = await axios.post(
-        "http://localhost:5000/api/user/order/paymentVerification",
+        `${base_url}user/order/paymentVerification`,
         data,
         config
       );
 
-  
- 
-    
         dispatch(
           createAnOrder({
             totalPrice: totalAmount,
