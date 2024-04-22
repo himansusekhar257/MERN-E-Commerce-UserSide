@@ -15,8 +15,6 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
         run: docker build -t himansusekhar752/userside .
-      - name: Publish Image to docker hub
-        run: docker push himansusekhar752/userside:latest
 
   deploy:
     needs: build
@@ -30,14 +28,4 @@ jobs:
           docker rm ecomerce_userside_container || true
       - name: Run Docker Container
         run: |
-          docker run -d -p 5000:5000 --name ecomerce_userside_container \
-            -e MONGODB_URL='${{ secrets.MONGODB_URL }}' \
-            -e PAYMENT_KEY='${{ secrets.PAYMENT_KEY }}' \
-            -e PAYMENT_SECRET_KEY='${{ secrets.PAYMENT_SECRET_KEY }}' \
-            -e SECRET_KEY='${{ secrets.SECRET_KEY }}' \
-            -e API_KEY='${{ secrets.API_KEY }}' \
-            -e CLOUD_NAME='${{ secrets.CLOUD_NAME }}' \
-            -e MP='${{ secrets.MP }}' \
-            -e MAIL_ID='${{ secrets.MAIL_ID }}' \
-            -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
-            himansusekhar752/userside
+          docker run -d -p 3000:80 --name ecomerce_userside_container himansusekhar752/userside
