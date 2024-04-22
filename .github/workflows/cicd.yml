@@ -14,7 +14,7 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker Image
-        run: docker build -t himansusekhar752/userside --build-arg REACT_APP_NODE_ENV='production' --build-arg base_url='${{ secrets.base_url }}' .
+        run: docker build -t himansusekhar752/userside --build-arg REACT_APP_NODE_ENV='production' --build-arg REACT_APP_BASE_URL='${{ secrets.REACT_APP_BASE_URL }}' .
       - name: Publish Image to docker hub
         run: docker push himansusekhar752/userside:latest
 
@@ -30,4 +30,7 @@ jobs:
           docker rm ecomerce_userside_container || true
       - name: Run Docker Container
         run: |
-          docker run -d -p 3000:80 --name ecomerce_userside_container himansusekhar752/userside
+          docker run -d -p 3000:80 --name ecomerce_userside_container \
+            -e REACT_APP_NODE_ENV=production \
+            -e REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }} \
+            himansusekhar752/userside
