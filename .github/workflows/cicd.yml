@@ -30,7 +30,4 @@ jobs:
           docker rm ecomerce_userside_container || true
       - name: Run Docker Container
         run: |
-          docker run -d -p 3000:80 --name ecomerce_userside_container \
-            -e REACT_APP_NODE_ENV=production \
-            -e REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL }} \
-            himansusekhar752/userside
+          docker run -d -p 3000:80 --name ecomerce_userside_container himansusekhar752/userside
