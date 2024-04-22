@@ -2,10 +2,10 @@
 FROM node:alpine3.18 AS build
 
 ARG REACT_APP_NODE_ENV
-ARG base_url
+ARG BASE_URL
 
 ENV REACT_APP_NODE_ENV=$REACT_APP_NODE_ENV
-ENV base_url=$base_url
+ENV BASE_URL=$BASE_URL
 
 WORKDIR /app
 COPY package.json ./
