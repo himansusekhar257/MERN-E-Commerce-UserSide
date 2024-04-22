@@ -45,12 +45,13 @@ const addToCart = async(cartData) =>{
     }
 };
 
-const getCart = async(data) =>{
-    const response = await axios.get(`${base_url}user/cart`,data)
+const getCart = async() =>{
+    const response = await axios.get(`${base_url}user/cart`, config);
     if(response.data){
         return response.data;
     }
 };
+
 const removeProductFromCart = async(data) =>{
     const response = await axios.delete(`${base_url}user/delete-product-cart/${data.id}`,data.config2)
     if(response.data){

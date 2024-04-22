@@ -173,13 +173,14 @@ export const authSlice = createSlice({
             if(state.isSuccess===true){
                 toast.info("User Created Successfully");
             }
-        }).addCase(registerUser.rejected,(state,action)=>{
-            state.isLoading=false;
-            state.isError=true;
-            state.isSuccess=false;
-            state.message=action.error;
-            if(state.isError===true){
-                toast.error(action.payload.response.data.message);
+        }).addCase(registerUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.isSuccess = false;
+            state.message = action.payload?.response?.data?.message || "Unknown error";
+        
+            if (state.isError) {
+                toast.error(state.message);
             }
         }).addCase(loginUser.pending,(state)=>{
             state.isLoading = true
@@ -310,23 +311,28 @@ export const authSlice = createSlice({
          
         }).addCase(updateProfile.pending,(state)=>{
             state.isLoading = true;
-        }).addCase(updateProfile.fulfilled,(state, action)=>{
+        }).addCase(updateProfile.fulfilled, (state, action) => {
             state.isLoading = false;
             state.isError = false;
             state.isSuccess = true;
             state.updatedUser = action.payload;
-          
-                let currentUserData = JSON.parse(localStorage.getItem("customer"))
+        
+            if (state.isSuccess && action.payload) {
+                let currentUserData = JSON.parse(localStorage.getItem("customer"));
                 let newUserData = {
                     _id: currentUserData?._id,
                     token: currentUserData?.token,
-                    firstname: action?.payload?.firstname,
-                    lastname: action?.payload?.lastname,
-                    email: action?.payload?.email,
-                    mobile: action?.payload?.mobile,
-                }
-                localStorage.setItem("customer",JSON.stringify(newUserData))
-                toast.success("Profile update successfuly")
+                    firstname: action.payload.firstname,
+                    lastname: action.payload.lastname,
+                    email: action.payload.email,
+                    mobile: action.payload.mobile,
+                };
+                localStorage.setItem("customer", JSON.stringify(newUserData));
+                toast.success("Profile update successfuly");
+            } else {
+                // Handle the case where action.payload is undefined or missing expected properties
+                toast.error("Something Went Wrong");
+            }
           
         }).addCase(updateProfile.rejected,(state,action)=>{
             state.isLoading = false;
