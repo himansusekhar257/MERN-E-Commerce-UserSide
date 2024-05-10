@@ -1,5 +1,5 @@
-// export const base_url = 'http://localhost:5000/api/'
-export const base_url = 'http://15.207.18.229:5000/api/'
+export const base_url = 'http://localhost:5000/api/'
+// export const base_url = 'http://15.207.18.229:5000/api/'
 // export const base_url = process.env.base_url
 console.log("baseUrl",base_url);
 const getTokenFromLocalStorage = localStorage.getItem("customer")
