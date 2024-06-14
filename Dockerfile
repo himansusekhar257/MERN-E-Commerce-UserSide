@@ -28,8 +28,11 @@ FROM nginx:1.25.5-alpine
 # Set working directory
 WORKDIR /usr/share/nginx/html
 
-# Remove existing files
-RUN rm -rf *
+# Remove default NGINX configuration
+RUN rm -rf /etc/nginx/conf.d/*
+
+# Copy NGINX configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy build artifacts from the first stage
 COPY --from=build /app/build .
@@ -38,4 +41,4 @@ COPY --from=build /app/build .
 EXPOSE 80
 
 # Set NGINX entrypoint
-ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
