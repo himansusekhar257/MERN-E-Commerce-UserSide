@@ -12,9 +12,9 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
       - name: Login to Docker Hub
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
       - name: Build Docker Image
-        run: docker build -t himansusekhar752/userside --build-arg base_url='http://15.206.116.144:5000/api/' .
+        run: docker build -t himansusekhar752/userside:latest --build-arg BASE_URL='http://15.206.116.144:5000/api/' .
       - name: Publish Image to Docker Hub
         run: docker push himansusekhar752/userside:latest
 
@@ -30,4 +30,4 @@ jobs:
           docker rm ecomerce_userside_container || true
       - name: Run Docker Container
         run: |
-          docker run -d -p 3000:80 --name ecomerce_userside_container himansusekhar752/userside
+          docker run -d -p 3000:80 --name ecomerce_userside_container himansusekhar752/userside:latest
