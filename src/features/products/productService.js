@@ -9,6 +9,7 @@ const getProducts = async(data)=>{
     }
 };
 
+
 const getSingleProduct = async(id)=>{
     const response = await axios.get(`${base_url}product/${id}`);
     if(response.data){
